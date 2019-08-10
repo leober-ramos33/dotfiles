@@ -1,0 +1,13 @@
+directory = $HOME/Downloads
+
+session = $HOME/.rtorrent.session
+
+port_random = yes
+
+check_hash = no
+
+dht = auto
+dht_port = 6881
+peer_exchange = yes
+
+use_udp_trackers = yes

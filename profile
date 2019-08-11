@@ -16,12 +16,12 @@ if [ -n "$BASH_VERSION" ]; then
     fi
 fi
 
-# set PATH so it includes user's private bin if it exists
+# set PATH so it includes user"s private bin if it exists
 if [ -d "$HOME/bin" ] ; then
     PATH="$HOME/bin:$PATH"
 fi
 
-# set PATH so it includes user's private bin if it exists
+# set PATH so it includes user"s private bin if it exists
 if [ -d "$HOME/.local/bin" ] ; then
     PATH="$HOME/.local/bin:$PATH"
 fi
@@ -48,10 +48,12 @@ export NODEPATH="/usr/local/node"
 export PATH="$NODEPATH/bin:$PATH"
 
 # Aliases
-alias ls='ls --color=auto -shF'
-alias lr='ls --color=auto -shR'
-alias ll='ls --color=auto -shl'
-alias l='ls -CF'
-alias htmltopdf='rasterize.js'
-alias htmltojpeg='rasterize.js'
-alias htmltopng='rasterize.js'
+alias ls="ls --color=auto -shF"
+alias lr="ls --color=auto -shR"
+alias ll="ls --color=auto -shl"
+alias la="ls --color=auto -shFA"
+alias l="ls -CF"
+alias htmltopdf="rasterize.js"
+alias htmltojpeg="rasterize.js"
+alias htmltopng="rasterize.js"
+alias ssh="dbclient"

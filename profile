@@ -43,10 +43,6 @@ export PATH="$HOME/.cargo/bin:$PATH"
 # Composer (PHP)
 export PATH="$HOME/.config/composer/vendor/bin:$PATH"
 
-# Node.js (JavaScript)
-export NODEPATH="/usr/local/node"
-export PATH="$NODEPATH/bin:$PATH"
-
 # Aliases
 alias ls="ls --color=auto -shF"
 alias lr="ls --color=auto -shR"

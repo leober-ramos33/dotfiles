@@ -31,17 +31,24 @@ export LC_ALL=en_US.UTF-8
 export TERM=xterm-256color
 export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games"
 
+# User Binaries
+export PATH="$HOME/.local/bin:$PATH"
+
 # Go (Golang)
-export GOROOT="/usr/local/go"
+export GOROOT="$HOME/.local/share/go"
 export GOBIN="$GOROOT/bin"
-export GOPATH="$HOME/go"
+export GOPATH="$HOME/.go"
 export PATH="$GOBIN:$GOPATH/bin:$PATH"
 
-# Rust
-export PATH="$HOME/.cargo/bin:$PATH"
+# JavaScript (Node.js)
+export PATH="$HOME/.local/share/node/bin:$PATH"
 
 # Composer (PHP)
-export PATH="$HOME/.config/composer/vendor/bin:$PATH"
+export PATH="$HOME/.config/composer/vendor/bin:$HOME/.composer/vendor/bin:$PATH"
+
+# Java (JRE)
+export JAVA_HOME="$HOME/.local/share/jre"
+export PATH="$JAVA_HOME/bin:$PATH"
 
 # Aliases
 alias ls="ls --color=auto -shF"

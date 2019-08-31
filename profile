@@ -35,20 +35,13 @@ export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/g
 export PATH="$HOME/.local/bin:$PATH"
 
 # Go (Golang)
-export GOROOT="$HOME/.local/share/go"
+export GOROOT="/usr/local/share/go"
 export GOBIN="$GOROOT/bin"
 export GOPATH="$HOME/.go"
 export PATH="$GOBIN:$GOPATH/bin:$PATH"
 
-# JavaScript (Node.js)
-export PATH="$HOME/.local/share/node/bin:$PATH"
-
 # Composer (PHP)
 export PATH="$HOME/.config/composer/vendor/bin:$HOME/.composer/vendor/bin:$PATH"
-
-# Java (JRE)
-export JAVA_HOME="$HOME/.local/share/jre"
-export PATH="$JAVA_HOME/bin:$PATH"
 
 # Aliases
 alias ls="ls --color=auto -shF"
@@ -59,4 +52,4 @@ alias l="ls -CF"
 alias htmltopdf="rasterize.js"
 alias htmltojpeg="rasterize.js"
 alias htmltopng="rasterize.js"
-alias ssh="dbclient"
+alias mtpfs="jmtpfs"

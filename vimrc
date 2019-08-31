@@ -20,9 +20,9 @@ Plugin 'kaicataldo/material.vim'
 Plugin 'pangloss/vim-javascript'
 Plugin 'mattn/emmet-vim'
 Plugin 'MaxMEllon/vim-jsx-pretty'
-" Plugin 'StanAngeloff/php.vim'
-" Plugin 'hail2u/vim-css3-syntax'
+Plugin 'StanAngeloff/php.vim'
 Plugin 'fatih/vim-go'
+Plugin 'editorconfig/editorconfig-vim'
 
 command W w !sudo tee % > /dev/null
 command Q q!

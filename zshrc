@@ -55,17 +55,19 @@ export TRACKERS="tr=udp://tracker.openbittorrent.com:80&tr=udp://tracker.opentra
 
 # Aliases
 alias ls="ls --color=auto -shF"
-# alias lr="ls --color=auto -shR"
-# alias ll="ls --color=auto -shl"
-# alias la="ls --color=auto -shFA"
-# alias l="ls -CF"
+alias lr="ls --color=auto -shR"
+alias ll="ls --color=auto -shl"
+alias la="ls --color=auto -shFA"
+alias l="ls -CF"
 alias htmltopdf="rasterize.js"
 alias htmltojpeg="rasterize.js"
 alias htmltopng="rasterize.js"
-alias download_music="youtube-dl -x --embed-thumbnail --add-metadata --audio-format mp3 -o '%(title)s.%(ext)s' --exec 'ffmpeg -i {} -c copy -metadata comment= -metadata description= -metadata purl= tmp.mp3 && mv -f tmp.mp3 {}'"
+alias download_music="youtube-dl -x --embed-thumbnail --retries infinite --add-metadata --audio-format mp3 -o '%(title)s.%(ext)s' --exec 'ffmpeg -i {} -c copy -metadata comment= -metadata description= -metadata purl= tmp.mp3 && mv -f tmp.mp3 {}'"
 alias download_file="aria2c -j 16 -s 16 -x 16 -k 1M -c"
 alias pbcopy="xclip -selection clipboard"
 alias pbpaste="xclip -selection clipboard -o"
+alias vim="nvim"
+alias vi="vim"
 
 # Functions
 lscwd () {
@@ -78,17 +80,18 @@ lscwd () {
 	find "$DIR" -maxdepth 1 ! -name "." -printf "" -exec du -sh {} \; 2>/dev/null
 }
 
-# txt2pdf () {
-# 	if [ -z "$1" ]; then
-# 		echo "A file is required."
-# 		exit 1
-# 	fi
-#
-# 	filename=$(basename -s .txt $1)
-# 	vim $1 -c "hardcopy > $filename.ps | q"
-# 	ps2pdf "$filename.ps"
-# 	rm -f "$filename.ps"
-# }
+txt2pdf () {
+	if [ -z "$1" ]; then
+		echo "A file is required."
+		exit 1
+	fi
 
-# VIM to NVIM
-alias vim="nvim"
+	filename=$(basename -s .txt $1)
+	vim $1 -c "hardcopy > $filename.ps | q"
+	ps2pdf "$filename.ps"
+	rm -f "$filename.ps"
+}
+
+# if command -v tmux &> /dev/null && [ -n "$PS1" ] && [[ ! "$TERM" =~ screen ]] && [[ ! "$TERM" =~ tmux ]] && [ -z "$TMUX" ]; then
+#   exec tmux
+# fi

@@ -1,6 +1,6 @@
 set nocompatible
-syntax on
-set nowrap
+syntax off
+set wrap
 set encoding=utf-8
 
 """""""""""""""""""""""""""""""""""""
@@ -14,17 +14,19 @@ call plug#begin('~/.vim/plugged')
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 Plug 'vim-airline/vim-airline'
 Plug 'tomtom/tcomment_vim'
+Plug 'raimondi/delimitmate'
 Plug 'editorconfig/editorconfig-vim'
+Plug 'airblade/vim-gitgutter'
 Plug 'w0rp/ale'
-" Plug 'majutsushi/tagbar'
-" Plug 'tpope/vim-fugitive'
-" Plug 'airblade/vim-gitgutter'
-Plug 'neoclide/coc.nvim'
 Plug 'mattn/emmet-vim', { 'for': ['html', 'php', 'xml', 'blade', 'html.twig'] }
+
+" Autocompletion
+Plug 'lifepillar/vim-mucomplete'
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
 
 " Syntax and Themes Plugins
 Plug 'sheerun/vim-polyglot'
-" Plug 'ctrlpvim/ctrlp.vim', { 'on': 'CtrlP' }
 " Plug 'vim-airline/vim-airline-themes'
 Plug 'morhetz/gruvbox'
 
@@ -37,6 +39,9 @@ filetype plugin indent on
 
 " Colorscheme
 colorscheme gruvbox
+
+" Complete option menu
+set completeopt=menu
 
 " No backup
 set nobackup
@@ -55,9 +60,7 @@ set noshowcmd
 set backspace=indent,eol,start
 
 " Show colors
-if (has("termguicolors"))
-  set termguicolors
-endif
+set termguicolors
 
 " Always disable the status line
 set laststatus=1
@@ -88,7 +91,7 @@ set background=dark
 set statusline+=%#warningmsg#
 
 " Match the brackets
-set showmatch
+" set showmatch
 
 " Set the filename in the title of the terminal
 set title
@@ -101,6 +104,9 @@ let mapleader = ","
 
 " Perfomance settings
 set lazyredraw
+set ttyfast
+" set regexpengine=1
+set foldmethod=manual
 
 """""""""""""""""""""""""""""""""""""
 " Plugin configuration section
@@ -109,25 +115,56 @@ set lazyredraw
 " Airline
 let g:airline_powerline_fonts = 1
 
-" COC.nvim
-set updatetime=300
-set shortmess+=c
+" vim-mucomplete
+set completeopt-=preview
+set completeopt+=menuone,noselect
+set shortmess+=c   " Shut off completion messages
+set belloff+=ctrlg " If Vim beeps during completion
+let g:mucomplete#enable_auto_at_startup = 1
+let g:mucomplete#chains = { 'default':
+            \ [ 'ulti','omni','tags','keyn','keyp','path','line'] }
 
-inoremap <silent><expr> <c-space> coc#refresh()
+" ultisnips
+let g:UltiSnipsExpandTrigger="<C-right>"
+let g:UltiSnipsJumpForwardTrigger="<C-right>"
+let g:UltiSnipsJumpBackwardTrigger="<C-left>"
 
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
-xmap <leader>f  <Plug>(coc-format-selected)
-nmap <leader>f  <Plug>(coc-format-selected)
+fun! TryUltiSnips()
+    let g:ulti_expand_or_jump_res = 0
+    if !pumvisible() " With the pop-up menu open, let Tab move down
+        call UltiSnips#ExpandSnippetOrJump()
+    endif
+    return ''
+endf
+
+fun! TryMUcomplete()
+    return g:ulti_expand_or_jump_res ? "" : "\<plug>(MUcompleteFwd)"
+endf
+
+let g:mucomplete#no_mappings  = 1 " Don't do any mappings I will do it myself
+
+" Extend completion
+imap <expr> <S-tab> mucomplete#extend_fwd("\<right>")
+
+" Cycle through completion chains
+imap <unique> <c-'> <plug>(MUcompleteCycFwd)
+imap <unique> <c-;> <plug>(MUcompleteCycBwd)
+
+" Try to expand snippet, if fails try completion.
+inoremap <plug>(TryUlti) <c-r>=TryUltiSnips()<cr>
+imap <expr> <silent> <plug>(TryMU) TryMUcomplete()
+imap <expr> <silent> <tab> "\<plug>(TryUlti)\<plug>(TryMU)"
+" Map tab in select mode as well, otherwise you won't be able to jump if a snippet place
+" holder has default value.
+snoremap <silent> <tab> <Esc>:call UltiSnips#ExpandSnippetOrJump()<cr>
+" Autoexpand if completed keyword is a snippet
+inoremap <silent> <expr> <plug>MyCR mucomplete#ultisnips#expand_snippet("\<cr>")
+imap <cr> <plug>MyCR
 
 " ALE
 let g:ale_sign_error = '✘'
 let g:ale_sign_warning = 'W'
 let g:airline#extensions#ale#enabled = 1
-let g:ale_lint_on_text_changed = 'never'
-let g:ale_lint_on_insert_leave = 0
 let g:ale_disable_lsp = 1
 let g:ale_lint_on_enter = 0
 let g:ale_pattern_options = {
@@ -166,12 +203,6 @@ map <leader>h :noh<CR>
 
 " NERDTree
 map <C-n> :NERDTreeToggle<CR>
-
-" Tagbar
-" map <C-t> :TagbarToggle<CR>
-
-" CTRLP.vim
-" map <C-p> :CtrlP<CR>
 
 " ALE
 nmap <silent> <leader>k <Plug>(ale_previous_wrap)

@@ -45,35 +45,35 @@ alias lr="ls --color=auto -shR"
 alias ll="ls --color=auto -shl"
 alias la="ls --color=auto -shFA"
 alias l="ls -CF"
-alias htmltopdf="rasterize.js"
-alias htmltojpeg="rasterize.js"
-alias htmltopng="rasterize.js"
+# alias htmltopdf="rasterize.js"
+# alias htmltojpeg="rasterize.js"
+# alias htmltopng="rasterize.js"
 alias pbcopy="xclip -selection clipboard"
 alias pbpaste="xclip -selection clipboard -o"
 alias livereload="browser-sync start -s -f . --no-notify --host localhost --port 8080"
 
 # Functions
-lscwd () {
-	if [ -z "$1" ]; then
-		DIR="."
-	else
-		DIR="$1"
-	fi
-
-	find "$DIR" -maxdepth 1 ! -name "." -printf "" -exec du -sh {} \; 2>/dev/null
-}
-
-txt2pdf () {
-	if [ -z "$1" ]; then
-		echo "A file is required."
-		exit 1
-	fi
-
-	filename=$(basename -s .txt $1)
-	vim $1 -c "hardcopy > $filename.ps | q"
-	ps2pdf "$filename.ps"
-	rm -f "$filename.ps"
-}
+# lscwd () {
+# 	if [ -z "$1" ]; then
+# 		DIR="."
+# 	else
+# 		DIR="$1"
+# 	fi
+#
+# 	find "$DIR" -maxdepth 1 ! -name "." -printf "" -exec du -sh {} \; 2>/dev/null
+# }
+#
+# txt2pdf () {
+# 	if [ -z "$1" ]; then
+# 		echo "A file is required."
+# 		exit 1
+# 	fi
+#
+# 	filename=$(basename -s .txt $1)
+# 	vim $1 -c "hardcopy > $filename.ps | q"
+# 	ps2pdf "$filename.ps"
+# 	rm -f "$filename.ps"
+# }
 
 if command -v tmux &> /dev/null && [ -n "$PS1" ] && [[ ! "$TERM" =~ screen ]] && [[ ! "$TERM" =~ tmux ]] && [ -z "$TMUX" ]; then
   exec tmux
